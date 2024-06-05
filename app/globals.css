@@ -26,3 +26,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.bg-modal {
+  --tw-bg-opacity: 1;
+  background-color: rgb(40 43 48 / var(--tw-bg-opacity));
+}

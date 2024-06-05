@@ -12,7 +12,7 @@ async function fetchCountries() {
 export default async function Home() {
 
   const countries = await fetchCountries();
-  console.log(countries);
+  // console.log(countries);
 
   return (
     <main className=" flex-col items-center justify-between">
