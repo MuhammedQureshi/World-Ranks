@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/Table"
+import FilterBy from '@/components/FilterBy';
 
 
 
@@ -19,9 +20,7 @@ function DataTable({countries}:any) {
   
   const filteredCountries = countries.filter((country:any) => 
     country.name.common.toLowerCase().includes(keyword) ||
-    country.region.toLowerCase().includes(keyword)
-    // country.subregion.common.toLowerCase().includes(keyword)
-  
+    country.region.toLowerCase().includes(keyword)  
   );
 
   const onInputChange = (e:any) => {
@@ -37,8 +36,8 @@ function DataTable({countries}:any) {
         <SearchInput onChange={onInputChange} />
       </div>
       <section className='lg:flex mx-6 items-start'>
-        <section>
-          Sort by
+        <section className='flex flex-col lg:mb-0 lg:w-[320px] px-2'>
+          <FilterBy />
         </section>
         <section className='md:ml-auto mt-6 lg:w-2/3'>
           <Table className='min-w-[600px] w-full table-fixed text-sm text-left rtl:text-right text-gray-500'>
