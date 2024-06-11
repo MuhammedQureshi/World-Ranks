@@ -1,23 +1,36 @@
 import React from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select"
 
 function FilterBy() {
   return (
-    <div className='flex flex-col w-full mt-5'>
-        <div>
+        <div className='flex flex-col mt-5'>
+           <div>
             <label className='text-sm'>Sort By</label>
-            <section className="flex flex-col pt-3">
-                <div className="flex border-[1px] border-modal rounded-xl px-3">
-                    <select className="bg-transparent w-full py-3 focus:outline-none placeholder:text-primary">
-                    <option value="name">Name</option>
-                    <option value="flag">Flag</option>
-                    <option value="population">Population</option>
-                    <option value="area">Area</option>
-                    <option value="region">Region</option>
-                    </select>
-                </div>
+            <section className="flex pt-3">
+                  <Select>
+                    <SelectTrigger className="lg:w-[95%] text-md bg-transparent rounded-xl border-solid border-[2px] border-[#282b30]">
+                      <SelectValue placeholder="Sort by" />
+                    </SelectTrigger>
+                    <SelectContent className=''>
+                      <SelectGroup className=''>
+                        <SelectItem value="name">Name</SelectItem>
+                        <SelectItem value="population">Population</SelectItem>
+                        <SelectItem value="area">Area</SelectItem>
+                        <SelectItem value="region">Region</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
             </section>
+           </div>
         </div>
-    </div>
   )
 }
 

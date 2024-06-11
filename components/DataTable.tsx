@@ -36,11 +36,11 @@ function DataTable({countries}:any) {
         <SearchInput onChange={onInputChange} />
       </div>
       <section className='lg:flex mx-6 items-start'>
-        <section className='flex flex-col lg:mb-0 lg:w-[320px] px-2'>
+        <section className='flex flex-col lg:mb-0 lg:w-1/4 pr-6'>
           <FilterBy />
         </section>
-        <section className='md:ml-auto mt-6 lg:w-2/3'>
-          <Table className='min-w-[600px] w-full table-fixed text-sm text-left rtl:text-right text-gray-500'>
+        <section className='md:ml-auto mt-6 lg:w-3/4'>
+          <Table className='min-w-[700px] w-full table-fixed text-sm text-left rtl:text-right text-gray-500'>
             <TableHeader className=''>
               <TableRow>
                 <TableHead className="w-[100px] text-center">Flag</TableHead>
@@ -53,7 +53,9 @@ function DataTable({countries}:any) {
             {filteredCountries.map((country: any) => 
               <TableBody key={country.name.common} className='text-center'>
                 <TableRow>
-                  <TableCell className="text-5xl">{country.flag}</TableCell>
+                  <TableCell className="text-5xl">
+                    <img src={country.flags.svg} alt={country.name.common} />
+                  </TableCell>
                   <TableCell className=''>{country.name.common}</TableCell>
                   <TableCell>{country.population.toLocaleString()}</TableCell>
                   <TableCell>{country.area.toLocaleString()}</TableCell>
