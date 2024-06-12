@@ -4,7 +4,6 @@ import SearchInput from '@/components/SearchInput'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -15,6 +14,7 @@ import FilterBy from '@/components/FilterBy';
 function DataTable({ countries }: any) {
   const [keyword, setKeyword] = useState('');
   const [sortCriteria, setSortCriteria] = useState('name'); // Default sorting by name
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 
   const onInputChange = (e: any) => {
     e.preventDefault();
@@ -25,10 +25,16 @@ function DataTable({ countries }: any) {
     setSortCriteria(value);
   }
 
-  const filteredCountries = countries.filter((country: any) =>
-    country.name.common.toLowerCase().includes(keyword) ||
-    country.region.toLowerCase().includes(keyword)
-  );
+  const onSelect = (values: string[]) => {
+    setSelectedRegions(values);
+  }
+
+  const filteredCountries = countries.filter((country: any) => {
+    const matchesKeyword = country.name.common.toLowerCase().includes(keyword) ||
+                           country.region.toLowerCase().includes(keyword);
+    const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(country.region.toLowerCase());
+    return matchesKeyword && matchesRegion;
+  });
 
   const sortedCountries = filteredCountries.sort((a: any, b: any) => {
     if (sortCriteria === 'name') {
@@ -56,7 +62,7 @@ function DataTable({ countries }: any) {
       </div>
       <section className='lg:flex mx-6 items-start'>
         <section className='flex flex-col lg:mb-0 lg:w-1/4 pr-6'>
-          <FilterBy onValueChange={onSortChange} />
+          <FilterBy onValueChange={onSortChange} onSelect={onSelect} />
         </section>
         <section className='md:ml-auto mt-6 lg:w-4/5'>
           <Table className='min-w-[700px] w-full table-fixed text-sm text-left rtl:text-right text-gray-500'>
