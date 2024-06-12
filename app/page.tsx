@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className=" flex-col items-center justify-between">
        <Hero />
-       <div className="md:mx-20">
+       <div className="xl:mx-[10rem]">
        <DataTable countries={countries} />
        </div>
     </main>
