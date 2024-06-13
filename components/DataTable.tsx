@@ -1,6 +1,6 @@
-'use client'
-import React, { useState } from 'react'
-import SearchInput from '@/components/SearchInput'
+"use client"
+import React, { useState } from 'react';
+import SearchInput from '@/components/SearchInput';
 import {
   Table,
   TableBody,
@@ -8,13 +8,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/Table"
+} from "@/components/ui/Table";
 import FilterBy from '@/components/FilterBy';
 
 function DataTable({ countries }: any) {
   const [keyword, setKeyword] = useState('');
   const [sortCriteria, setSortCriteria] = useState('name'); // Default sorting by name
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [independent, setIndependent] = useState(true); // Changed to false to show all initially
+  const [unMember, setUnMember] = useState(true); // Changed to false to show all initially
+
+  const onCheckChange = (value: string) => {
+    if (value === 'independent') {
+      setIndependent(!independent);
+    } else if (value === 'unMember') {
+      setUnMember(!unMember);
+    }
+  }
 
   const onInputChange = (e: any) => {
     e.preventDefault();
@@ -33,7 +43,8 @@ function DataTable({ countries }: any) {
     const matchesKeyword = country.name.common.toLowerCase().includes(keyword) ||
                            country.region.toLowerCase().includes(keyword);
     const matchesRegion = selectedRegions.length === 0 || selectedRegions.includes(country.region.toLowerCase());
-    return matchesKeyword && matchesRegion;
+    const matchesStatus = (!independent || country.independent) && (!unMember || country.unMember);
+    return matchesKeyword && matchesRegion && matchesStatus;
   });
 
   const sortedCountries = filteredCountries.sort((a: any, b: any) => {
@@ -62,7 +73,13 @@ function DataTable({ countries }: any) {
       </div>
       <section className='lg:flex mx-6 items-start'>
         <section className='flex flex-col lg:mb-0 lg:w-1/4 pr-6'>
-          <FilterBy onValueChange={onSortChange} onSelect={onSelect} />
+          <FilterBy 
+            onValueChange={onSortChange} 
+            onSelect={onSelect} 
+            onCheckedChange={onCheckChange}
+            independentChecked={independent}
+            unMemberChecked={unMember}
+          />
         </section>
         <section className='md:ml-auto mt-6 lg:w-4/5'>
           <Table className='min-w-[700px] w-full table-fixed text-sm text-left rtl:text-right text-gray-500'>

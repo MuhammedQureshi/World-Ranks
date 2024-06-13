@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/ToggleGroup";
+import { Checkbox } from "@/components/ui/CheckBox";
 import {
   Select,
   SelectContent,
@@ -6,13 +8,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/Select"
+} from "@/components/ui/Select";
 
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/ToggleGroup"
-
-import { Checkbox } from "@/components/ui/CheckBox"
-
-function FilterBy({ onValueChange, onSelect, ...rest }: any) {
+function FilterBy({ onValueChange, onSelect, onCheckedChange, independentChecked, unMemberChecked, ...rest }: any) {
   return (
     <div className='flex flex-col mt-5'>
       <div>
@@ -49,18 +47,14 @@ function FilterBy({ onValueChange, onSelect, ...rest }: any) {
         <label className='text-sm'>Status</label>
         <section className='mt-3'>
           <div className="flex items-center space-x-2">
-            <Checkbox id="un-member" />
-            <label
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
+            <Checkbox id="un-member" defaultChecked checked={unMemberChecked} onCheckedChange={() => onCheckedChange('unMember')} />
+            <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               Member of the United Nations
             </label>
           </div>
           <div className="flex items-center space-x-2 mt-3">
-            <Checkbox id="independent" />
-            <label
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
+            <Checkbox id="independent" defaultChecked checked={independentChecked} onCheckedChange={() => onCheckedChange('independent')} />
+            <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               Independent
             </label>
           </div>
@@ -70,4 +64,4 @@ function FilterBy({ onValueChange, onSelect, ...rest }: any) {
   )
 }
 
-export default FilterBy
+export default FilterBy;
